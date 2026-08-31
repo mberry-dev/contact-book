@@ -1,0 +1,282 @@
+/* 
+ * CSS Custom Properties (Variables)
+ * Centralized theming for consistent design
+ */
+:root {
+  --primary-color: #4caf50;
+  --primary-hover: #45a049;
+  --danger-color: #e74c3c;
+  --danger-hover: #c0392b;
+  --border-color: #ddd;
+  --background-light: #fafafa;
+  --background-page: #f4f4f9;
+  --text-color: #333;
+  --error-color: #ff0000;
+}
+
+/* Base page styles */
+body {
+  font-family: Arial, sans-serif;
+  background: var(--background-page);
+  margin: 0;
+  padding: 20px;
+  color: var(--text-color);
+}
+
+/* Main app container */
+.app-container {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* App header */
+h1 {
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+/* Form and search bar layout */
+.contact-form,
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+/* Ensure horizontal layout on desktop */
+.contact-form {
+  flex-wrap: nowrap; /* Keep in one row */
+}
+
+.contact-form input {
+  min-width: 120px; /* Prevents inputs from getting too narrow */
+}
+
+/* Input field styles */
+.contact-form input,
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+/* Input focus states */
+.contact-form input:focus,
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+/* Form button styles */
+.contact-form button {
+  padding: 10px 15px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.contact-form button:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.contact-form button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Error message styling */
+.error {
+  color: var(--error-color);
+  font-size: 0.9em;
+  margin: 10px 0 0 0;
+  width: 100%;
+}
+
+/* Search bar spacing */
+.search-bar {
+  margin: 20px 0;
+}
+
+/* Contact list container */
+.contact-list {
+  margin-top: 20px;
+}
+
+/* Individual contact item card */
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: var(--background-light);
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+/* Contact information layout */
+.contact-info {
+  flex: 1;
+}
+
+.contact-info p {
+  margin: 5px 0;
+}
+
+.contact-info p:first-child {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* Delete button styling */
+.contact-item button {
+  background: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  white-space: nowrap;
+}
+
+.contact-item button:hover {
+  background: var(--danger-hover);
+}
+
+/* Responsive Design */
+/* Tablet styles (768px and below) */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 15px;
+    margin: 10px;
+  }
+  
+  /* Stack form vertically on tablet */
+  .contact-form,
+  .search-bar {
+    flex-direction: column;
+  }
+  
+  .contact-form input,
+  .search-bar input,
+  .contact-form button {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
+
+/* Mobile styles (480px and below) */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  
+  .app-container {
+    padding: 15px;
+    margin: 0;
+  }
+  
+  /* Stack contact items vertically on mobile */
+  .contact-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .contact-item button {
+    align-self: flex-end;
+    width: auto;
+    min-width: 80px;
+  }
+  
+  h1 {
+    font-size: 1.5em;
+  }
+}
+
+/* Accessibility: Focus indicators */
+button:focus,
+input:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Empty state message styling */
+.contact-list p {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* tablet view- 768 x 1024 */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 15px;
+    margin: 10px;
+    max-width: calc(100% - 20px); /* Prevents overflow */
+    box-sizing: border-box; /* Ensures padding is included in width */
+  }
+  
+  .contact-form,
+  .search-bar {
+    flex-direction: column;
+  }
+  
+  .contact-form input,
+  .search-bar input,
+  .contact-form button {
+    width: 100%;
+    margin-bottom: 8px;
+    box-sizing: border-box; /* Important for width calculations */
+  }
+  
+  /* Ensure contact items don't overflow */
+  .contact-item {
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+  }
+}
+
+/* Tablet-specific optimization (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .app-container {
+    max-width: 90%; /* Use percentage instead of fixed width */
+    margin: 20px auto;
+    padding: 25px;
+  }
+  
+  .contact-form input,
+  .search-bar input {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 12px;
+  }
+  
+  .contact-item {
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2em; /* Slightly larger header for tablet */
+    margin-bottom: 30px;
+  }
+}
