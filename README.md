@@ -27,7 +27,7 @@ npm install
 npm run dev
 ```
 
-Then open the address shown in the terminal (usually http://localhost:5173).
+Then open the address shown in the terminal in your browser (usually `http://localhost:5173`). It only works while `npm run dev` is running on your own computer.
 
 ## Tests
 
