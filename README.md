@@ -42,6 +42,12 @@ npm run lint
 npm run build
 ```
 
+`npm test` prints one line per test file. To see every test listed by name, run:
+
+```bash
+npx vitest run --reporter=verbose
+```
+
 ## Project Structure
 
 ```
