@@ -1,35 +1,61 @@
-# React + Vite
+# Contact Book
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small contact manager built with React and Vite. Add people with a name, email and optional phone number, search them by name or email, and delete them. Your contacts are saved in your browser, so they are still there after a refresh.
 
-Currently, two official plugins are available:
+**Live demo:** https://mberry-dev.github.io/contact-book/
+Contacts are stored only in your own browser (localStorage). Nothing is sent to a server.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Contact Book on desktop](contactbook/screenshots/screenshot-desktop.png)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Add contacts with validation: name and email are required, the email must look valid, and the same email can't be added twice (case is ignored)
+- Live search by name or email
+- Phone numbers with 10 digits are shown as (555) 123-4567
+- Contacts are saved in the browser and reloaded on the next visit; damaged or blocked storage is handled without crashing
+- Responsive layout (desktop, tablet and phone screenshots are in `contactbook/screenshots/`)
+- Accessible labels on every input and delete button
 
-## Expanding the ESLint configuration
+## Run Locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+You need [Node.js](https://nodejs.org) 18 or newer.
 
-Open Microsoft Windows Command Propmpt. This has been tested and works efficiently for this program. 
-
-Naviagte to your projrct folder directory by typing: cd \Users\name\OneDrive\Desktop\contactbook
-Replace name with your windows username.
-
-Install dependancies (only needed the first time or after pulling the project): 
+```bash
+git clone https://github.com/mberry-dev/contact-book.git
+cd contact-book/contactbook
 npm install
-This will recreate the node_modules folder.
+npm run dev
+```
 
-Start the server by running: npm run dev
+Then open the address shown in the terminal (usually http://localhost:5173).
 
-This will start the program and create a local server, usually accessible at http://localhost:5173 (or the URL shown in the terminal).
+## Tests
 
-Open the webpage by hovering your mouse over the localhost URL in the Command Prompt and pressing Ctrl + Click.
+32 automated tests (Vitest and React Testing Library):
 
-To stop the server, press Ctrl + C
+- **Unit tests** for the helpers: email validation, phone formatting, search, duplicate detection, and saving/loading including bad or blocked storage
+- **App tests** that use the real interface: adding, rejecting duplicates and bad emails, searching, deleting, and that contacts survive a reload
 
-You can restart the server anytime by running dpm run dev again.
+```bash
+npm test
+npm run lint
+npm run build
+```
+
+## Project Structure
+
+```
+contact-book/
+├── .github/workflows/deploy.yml   # Builds and publishes the live demo
+└── contactbook/
+    ├── src/
+    │   ├── App.jsx                # State, saving, search
+    │   ├── components/            # ContactForm, ContactList, ContactItem, SearchBar
+    │   └── utils/contacts.js      # Validation, formatting, search, storage helpers
+    ├── tests/                     # Unit and app tests
+    └── screenshots/
+```
+
+## Background
+
+Built as a React practice project and later cleaned up, tested and deployed as part of my portfolio.

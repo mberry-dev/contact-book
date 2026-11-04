@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createContact, isDuplicateEmail, validateEmail } from "../utils/contacts";
 
 /**
  * ContactForm Component - Handles adding new contacts
@@ -10,16 +11,6 @@ function ContactForm({ addContact, contacts }) {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-   /**
-   * Validates email format using regex
-   * @param {string} email - Email to validate
-   * @returns {boolean} - True if email is valid
-   */
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
 
   /**
    * Handles form submission with validation
@@ -38,30 +29,21 @@ function ContactForm({ addContact, contacts }) {
     }
 
     // Validation: Check email format
-    if (!validateEmail(email)) {
+    if (!validateEmail(email.trim())) {
       setError("Please enter a valid email address.");
       setIsSubmitting(false);
       return;
     }
 
     // Validation: Check for duplicate email
-    const duplicate = contacts.find(contact => 
-      contact.email.toLowerCase() === email.toLowerCase()
-    );
-    
-    if (duplicate) {
+    if (isDuplicateEmail(contacts, email)) {
       setError("A contact with this email already exists.");
       setIsSubmitting(false);
       return;
     }
 
     // Create new contact object with unique ID
-    const newContact = {
-      id: Date.now().toString(),
-      name: name.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-    };
+    const newContact = createContact({ name, email, phone });
 
     // Add contact to parent state
     addContact(newContact);

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContactForm from "./components/ContactForm";
 import SearchBar from "./components/SearchBar";
 import ContactList from "./components/ContactList";
+import { filterContacts, loadContacts, saveContacts } from "./utils/contacts";
 import "./index.css";
 
 /**
@@ -10,16 +11,21 @@ import "./index.css";
  */
 function App() {
    // State for storing all contacts
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(loadContacts);
   // State for search filter text
   const [filter, setFilter] = useState("");
+
+  // Save the list in the browser whenever it changes, so it survives a refresh
+  useEffect(() => {
+    saveContacts(contacts);
+  }, [contacts]);
 
   /**
    * Adds a new contact to the contacts array
    * @param {Object} contact - The contact object to add
    */
   const addContact = (contact) => {
-    setContacts([...contacts, contact]);
+    setContacts((prev) => [...prev, contact]);
   };
 
   /**
@@ -27,18 +33,14 @@ function App() {
    * @param {string} id - The ID of the contact to delete
    */
   const deleteContact = (id) => {
-    setContacts(contacts.filter((c) => c.id !== id));
+    setContacts((prev) => prev.filter((c) => c.id !== id));
   };
 
   /**
    * Filters contacts based on search text
    * Matches against name or email (case-insensitive)
    */
-  const filteredContacts = contacts.filter(
-    (c) => 
-      c.name.toLowerCase().includes(filter.toLowerCase()) || 
-      c.email.toLowerCase().includes(filter.toLowerCase())
-  );
+  const filteredContacts = filterContacts(contacts, filter);
 
   return (
     <div className="app-container">
